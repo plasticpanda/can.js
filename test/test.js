@@ -47,8 +47,16 @@ tape('admin user', function (t) {
 });
 
 
+tape('nonexistent rules', function (t) {
+  t.notOk(can.check(fixitures.user_john, 'foo', 'baz'), 'evaluates to false');
+  t.ok(can.check(fixitures.user_admin, 'foo', 'bar'), '...unless they match a wildcard');
+  t.end();
+});
+
+
 tape('throw on forbidden', function (t) {
   t.doesNotThrow(function () { can.assert(fixitures.user_anonymous, 'visit', 'site'); }, 'can visit website');
   t.throws(function () { can.assert(fixitures.user_anonymous, 'comment', 'site'); }, 'cannot comment');
+  t.throws(function () { can.assert(fixitures.user_anonymous, 'foo', 'bar'); }, 'on nonexistent rule');
   t.end();
 });
