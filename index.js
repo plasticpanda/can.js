@@ -35,6 +35,10 @@ var _ = require('lodash');
 
 module.exports = Can;
 
+/**
+ * Constructor
+ * @param Object config_ Configuration object (see test/config.js for an axample)
+ */
 function Can(config_) {
   
   debug('Loaded config file');
@@ -90,10 +94,23 @@ function Can(config_) {
   
 }
 
-Can.prototype.check = function() {
-  return this._exec.apply(this, arguments);
+/**
+ * Check if user is authorized to perform an action
+ * @param  {object} user         an user instance (any value, type, schema,...)
+ * @param  {string} actionName   action the user is trying to perform
+ * @param  {string} targetName   object type on which the action is being performed (e.g.: user, blog, photo)
+ * @param  {object|undefined} targetObject the actual object the action is being performed on (e.g.: object from db)
+ * @return {boolean}              true or false
+ */
+Can.prototype.check = function(user, actionName, targetName, targetObject) {
+  return this._exec.call(this, user, actionName, targetName, targetObject);
 };
 
-Can.prototype.assert = function(__, actionName, targetName) {
-  assert(this._exec.apply(this, arguments) === true, 'User is not authorized to perform action ' + actionName + ' on object ' + targetName);
+
+/**
+ * Check if user is authorized to perform an action; throws if not
+ * @throws {AssertionError} If user is not authorized to perform this action
+ */
+Can.prototype.assert = function(user, actionName, targetName, targetObject) {
+  assert(this._exec.call(this, user, actionName, targetName, targetObject) === true, 'User is not authorized to perform action ' + actionName + ' on object ' + targetName);
 };

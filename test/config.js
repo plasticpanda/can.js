@@ -15,11 +15,15 @@ function hasRole(role) {
 module.exports = {
   
   '*': {
-    '*': [hasRole('admin')]
+    '*': [hasRole('admin')] // admin users are always allowed to perfor any action,
+                            //  if the right-side evaluates to "true" the action is authorized
+                            //  else, the next rules are evaluated
+                            //  if no rule evaluates to true the default action is to deny the action
   },
   
   'post': {
     
+    // every function in the array *must* return true for this action to be authorized
     'create': [isAuthenticated, function () {
       return true;
     }],
