@@ -1,6 +1,10 @@
 
 # Can.js
 
+[![Build Status](https://travis-ci.org/plasticpanda/can.js.svg?branch=master)](https://travis-ci.org/plasticpanda/can.js)  
+[![NPM](https://nodei.co/npm/can.js.png)](https://nodei.co/npm/can.js/)
+
+
 Micro authorization-library for NodeJS.
 
 For usage check ```test``` folder.
@@ -20,5 +24,4 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
 
