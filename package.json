@@ -1,0 +1,24 @@
+{
+  "name": "can.js",
+  "version": "0.0.1",
+  "description": "micro authorization library",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test/test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:plasticpanda/can.js.git"
+  },
+  "author": "Simone Lusenti <simone@plasticpanda.com>",
+  "license": "GPLv3",
+  "bugs": {
+    "url": "https://github.com/plasticpanda/can.js/issues"
+  },
+  "homepage": "https://github.com/plasticpanda/can.js",
+  "dependencies": {
+    "debug": "^2.1.1",
+    "lodash": "^2.4.1",
+    "tape": "^3.0.3"
+  }
+}
