@@ -5,9 +5,9 @@
 [![NPM](https://nodei.co/npm/can.js.png)](https://nodei.co/npm/can.js/)
 
 
-Micro authorization-library for NodeJS.
+Micro authorization library for NodeJS.
 
-For usage check ```test``` folder.
+For usage check the ```test``` folder.
 
 
 ## LICENSE
