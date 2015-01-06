@@ -1,7 +1,7 @@
 
 # Can.js
 
-[![Build Status](https://travis-ci.org/plasticpanda/can.js.svg?branch=master)](https://travis-ci.org/plasticpanda/can.js)  
+[![Build Status](https://travis-ci.org/plasticpanda/can.js.svg?branch=master)](https://travis-ci.org/plasticpanda/can.js) [![Coverage Status](https://img.shields.io/coveralls/plasticpanda/can.js.svg)](https://coveralls.io/r/plasticpanda/can.js?branch=master)  
 [![NPM](https://nodei.co/npm/can.js.png)](https://nodei.co/npm/can.js/)
 
 
