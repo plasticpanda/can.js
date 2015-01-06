@@ -4,8 +4,7 @@
   "description": "micro authorization library",
   "main": "index.js",
   "scripts": {
-    "test": "node test/test.js",
-    "coverage": "./node_modules/.bin/istanbul cover test/test.js && cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -r coverage"
+    "test": "./node_modules/.bin/istanbul cover test/test.js && cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js; rm -r coverage"
   },
   "repository": {
     "type": "git",
