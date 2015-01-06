@@ -67,3 +67,9 @@ tape('throw on forbidden', function (t) {
   t.throws(function () { can.assert(fixitures.user_anonymous, 'foo', 'bar'); }, 'on nonexistent rule');
   t.end();
 });
+
+
+tape('on configuration error', function (t) {
+  t.throws(function () { can.assert(fixitures.user_anonymous, 'foo', 'post'); }, 'throws');
+  t.end();
+});

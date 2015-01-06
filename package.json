@@ -1,10 +1,11 @@
 {
   "name": "can.js",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "micro authorization library",
   "main": "index.js",
   "scripts": {
-    "test": "node test/test.js"
+    "test": "node test/test.js",
+    "coverage": "./node_modules/.bin/istanbul cover test/test.js && cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -r coverage"
   },
   "repository": {
     "type": "git",
@@ -18,13 +19,15 @@
   "homepage": "https://github.com/plasticpanda/can.js",
   "dependencies": {
     "debug": "^2.1.1",
-    "lodash": "^2.4.1",
-    "tape": "^3.0.3"
+    "lodash": "^2.4.1"
   },
   "engines": {
     "node": "^0.10"
   },
   "devDependencies": {
+    "tape": "^3.0.3",
+    "coveralls": "^2.11.2",
+    "istanbul": "^0.3.5",
     "pre-commit": "0.0.9"
   }
 }

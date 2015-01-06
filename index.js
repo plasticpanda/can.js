@@ -40,63 +40,7 @@ module.exports = Can;
  * @param Object config_ Configuration object (see test/config.js for an axample)
  */
 function Can(config_) {
-  
-  debug('Loaded config file');
-  
-  this._exec = function (user, actionName, targetName, targetObject) {
-    var authorized = false;
-    
-    authorized = _.any(Object.keys(config_), function (configTarget) {
-      
-      if (configTarget !== '*' && configTarget !== targetName) {
-        // skip non-matching target name
-        return false;
-      }
-      
-      debug('Matching target "%s"', configTarget);
-      
-      return _.any(Object.keys(config_[configTarget]), function (configAction) {
-        
-        if (configAction !== '*' && configAction !== actionName) {
-          // skip non-matching actions name
-          return false;
-        }
-        
-        debug('Matching action "%s"', configAction);
-        
-        var fns = config_[configTarget][configAction];
-        
-        if (!Array.isArray(fns)) {
-          throw new Error('ConfigurationError: Value should be an array (of functions), not ' + typeof fns);
-        }
-        
-        debug('Running %d checks', fns.length);
-        
-        if (fns.length === 0) {
-          debug('Not authorized because there are no checks for this rule.');
-          return false;
-        }
-        
-        var result = _.every(fns, function runner(fn) {
-          debug('targetObject is %s', targetObject);
-          return fn(user, targetObject);
-        });
-        
-        if (result) {
-          debug('All passed, user is authorized');
-        } else {
-          debug('Rule does not authorize user, falling back to default deny');
-        }
-        
-        return result;
-        
-      });
-      
-    });
-    
-    return authorized;
-  };
-  
+  this.config = config_;
 }
 
 /**
@@ -108,7 +52,58 @@ function Can(config_) {
  * @return {boolean}              true or false
  */
 Can.prototype.check = function(user, actionName, targetName, targetObject) {
-  return this._exec.call(this, user, actionName, targetName, targetObject);
+  var config_ = this.config;
+  var authorized = false;
+  
+  authorized = _.any(Object.keys(config_), function (configTarget) {
+    
+    if (configTarget !== '*' && configTarget !== targetName) {
+      // skip non-matching target name
+      return false;
+    }
+    
+    debug('Matching target "%s"', configTarget);
+    
+    return _.any(Object.keys(config_[configTarget]), function (configAction) {
+      
+      if (configAction !== '*' && configAction !== actionName) {
+        // skip non-matching actions name
+        return false;
+      }
+      
+      debug('Matching action "%s"', configAction);
+      
+      var fns = config_[configTarget][configAction];
+      
+      if (!Array.isArray(fns)) {
+        throw new Error('ConfigurationError: Value should be an array (of functions), not ' + typeof fns);
+      }
+      
+      debug('Running %d checks', fns.length);
+      
+      if (fns.length === 0) {
+        debug('Not authorized because there are no checks for this rule.');
+        return false;
+      }
+      
+      var result = _.every(fns, function runner(fn) {
+        debug('targetObject is %s', targetObject);
+        return fn(user, targetObject);
+      });
+      
+      if (result) {
+        debug('All passed, user is authorized');
+      } else {
+        debug('Rule does not authorize user, falling back to default deny');
+      }
+      
+      return result;
+      
+    });
+    
+  });
+  
+  return authorized;
 };
 
 
@@ -117,5 +112,5 @@ Can.prototype.check = function(user, actionName, targetName, targetObject) {
  * @throws {AssertionError} If user is not authorized to perform this action
  */
 Can.prototype.assert = function(user, actionName, targetName, targetObject) {
-  assert(this._exec.call(this, user, actionName, targetName, targetObject) === true, 'User is not authorized to perform action ' + actionName + ' on object ' + targetName);
+  assert(this.check(user, actionName, targetName, targetObject) === true, 'User is not authorized to perform action ' + actionName + ' on object ' + targetName);
 };

@@ -32,17 +32,13 @@ module.exports = {
       return object.owner === user.id;
     }],
     
-    'delete': [hasRole('admin'), function () {
-      return true;
-    }],
+    'foo': false // error!
     
   },
   
   'site': {
     
-    'comment': [isAuthenticated, function () {
-      return true;
-    }],
+    'comment': [isAuthenticated],
     
     'visit': [function () {
       return true;
