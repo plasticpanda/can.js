@@ -72,6 +72,11 @@ function Can(config_) {
         
         debug('Running %d checks', fns.length);
         
+        if (fns.length === 0) {
+          debug('Not authorized because there are no checks for this rule.');
+          return false;
+        }
+        
         var result = _.every(fns, function runner(fn) {
           debug('targetObject is %s', targetObject);
           return fn(user, targetObject);

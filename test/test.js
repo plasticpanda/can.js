@@ -47,6 +47,13 @@ tape('admin user', function (t) {
 });
 
 
+tape('rule with no checks', function (t) {
+  t.notOk(can.check(fixitures.user_john, 'destroy', 'humanity'), 'evaluates to false');
+  t.throws(function () { can.assert(fixitures.user_john, 'destroy', 'humanity'); }, '...or throws');
+  t.end();
+});
+
+
 tape('nonexistent rules', function (t) {
   t.notOk(can.check(fixitures.user_john, 'foo', 'baz'), 'evaluates to false');
   t.ok(can.check(fixitures.user_admin, 'foo', 'bar'), '...unless they match a wildcard');

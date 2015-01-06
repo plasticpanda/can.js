@@ -48,6 +48,12 @@ module.exports = {
       return true;
     }]
     
+  },
+  
+  'humanity': {
+    
+    'destroy': []
+    
   }
   
 };
